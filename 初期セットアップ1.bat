@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 chcp 65001 > nul
 echo ================================
 echo Slack Post Reviewer 初期セットアップ1
@@ -59,7 +59,7 @@ if %errorlevel% neq 0 (
     echo ================================
     echo.
     echo PCを再起動してください。
-    echo 再起動後、「初期セットアップ②.bat」を実行してください。
+    echo 再起動後、「初期セットアップ2.bat」を実行してください。
     echo.
     pause
     exit /b 0

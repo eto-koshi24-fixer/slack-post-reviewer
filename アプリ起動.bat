@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 chcp 65001 > nul
 echo ================================
 echo Slack Post Reviewer 起動中...
