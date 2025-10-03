@@ -339,7 +339,7 @@ export default function Home() {
       {/* 2カラムレイアウト */}
       <div className="flex gap-6 flex-1  min-h-0">
         {/* 左側：操作パネル（400px固定） */}
-        <div className="w-96 flex flex-col gap-4 h-full overflow-y-auto">
+        <div className="w-96 flex flex-col gap-4 h-full overflow-y-auto px-2">
           {/* ユーザー情報カード */}
           {loggedIn && userInfo ? (
             <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 flex items-center gap-3">
@@ -378,7 +378,7 @@ export default function Home() {
             <button
               type="button"
               onClick={onLogin}
-              className="w-full py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 hover:underline-offset-4 hover:underline hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
+              className="w-full py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
             >
               <Icon path={mdiLogin} size={1} />
               Slack にログイン
@@ -387,18 +387,18 @@ export default function Home() {
             <button
               type="button"
               onClick={onLogout}
-              className="w-full py-3 bg-red-700 text-white rounded-lg hover:bg-red-600 hover:underline-offset-4 hover:underline hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed  font-medium flex items-center justify-center gap-2"
+              className="w-full py-3 bg-red-700 text-white rounded-lg hover:bg-red-600 hover:underline-offset-4 focus-visible:underline focus-visible:underline-offset-4 hover:underline hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed  font-medium flex items-center justify-center gap-2"
             >
               <Icon path={mdiLogout} size={1} />
               ログアウト
             </button>
           )}
 
-          <div className="flex items-center gap-1 mb-2">
+          <div className="flex items-center gap-2 mb-2">
             <div className="text-sm font-medium">期間</div>
             <button
               type="button"
-              className="flex items-center gap-1 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
+              className="flex items-center gap-1 cursor-pointer hover:bg-blue-50 focus-visible:bg-blue-50 focus-visible:underline focus-visible:underline-offset-4 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
               onClick={() => setIsDetailedMode(!isDetailedMode)}
               onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -428,7 +428,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setSelectedYear(prev => prev - 1)}
-                    className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
+                    className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 focus-visible:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
                   >
                     <Icon path={mdiChevronLeft} size={0.8} />
                   </button>
@@ -447,7 +447,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setSelectedYear(prev => prev + 1)}
-                    className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
+                    className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 focus-visible:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
                   >
                     <Icon path={mdiChevronRight} size={0.8} />
                   </button>
@@ -467,7 +467,7 @@ export default function Home() {
                         className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors hover:cursor-pointer ${
                           selectedMonth === monthNumber
                             ? "bg-blue-900 text-white hover:underline-offset-4 hover:underline"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:underline-offset-4 hover:underline"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200 focus-visible:bg-gray-200  focus-visible:underline focus-visible:underline-offset-4 hover:underline-offset-4 hover:underline"
                         }`}
                       >
                         {monthLabel}
@@ -508,7 +508,7 @@ export default function Home() {
             <div className="flex flex-wrap gap-4">
               <button
                 type="button"
-                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
+                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus-visible:bg-blue-50 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
                   setMessageTypes(prev => ({
                     ...prev,
@@ -544,7 +544,7 @@ export default function Home() {
               </button>
               <button
                 type="button"
-                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
+                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus-visible:bg-blue-50 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
                   setMessageTypes(prev => ({
                     ...prev,
@@ -580,7 +580,7 @@ export default function Home() {
               </button>
               <button
                 type="button"
-                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
+                className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus-visible:bg-blue-50 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
                   setMessageTypes(prev => ({ ...prev, dm: !prev.dm }))
                 }
@@ -614,7 +614,7 @@ export default function Home() {
             type="button"
             onClick={onFetch}
             disabled={!loggedIn || loading}
-            className="w-full py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 hover:underline-offset-4 hover:underline hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
+            className="w-full py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 focus-visible:bg-blue-800 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 hover:cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
           >
             <Icon
               path={mdiCloudDownload}
@@ -629,7 +629,7 @@ export default function Home() {
             type="button"
             onClick={downloadJSON}
             disabled={!data}
-            className="w-full py-3 px-4 border-2 border-blue-900 text-blue-900 bg-white rounded-lg hover:bg-blue-50 hover:underline-offset-4 hover:underline hover:cursor-pointer disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed font-medium flex items-center justify-center gap-2"
+            className="w-full py-3 px-4 border-2 border-blue-900 text-blue-900 bg-white rounded-lg hover:bg-blue-50 focus-visible:bg-blue-50 hover:underline-offset-4 hover:underline focus-visible:underline focus-visible:underline-offset-4 hover:cursor-pointer disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed font-medium flex items-center justify-center gap-2"
           >
             <Icon path={mdiCodeJson} size={1} />
             JSON をダウンロード
