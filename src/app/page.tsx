@@ -394,13 +394,11 @@ export default function Home() {
             </button>
           )}
 
-          <div className="block text-sm font-medium">期間</div>
-
-          {/* 詳細指定チェックボックス */}
-          <div>
+          <div className="flex items-center gap-1 mb-2">
+            <div className="text-sm font-medium">期間</div>
             <button
               type="button"
-              className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
+              className="flex items-center gap-1 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
               onClick={() => setIsDetailedMode(!isDetailedMode)}
               onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -415,10 +413,10 @@ export default function Home() {
                 path={
                   isDetailedMode ? mdiCheckboxMarked : mdiCheckboxBlankOutline
                 }
-                size={0.8}
+                size={0.7}
                 className={isDetailedMode ? "text-blue-900" : "text-gray-500"}
               />
-              <span className="text-sm font-medium text-black">詳細に指定</span>
+              <span className="text-xs font-medium text-black">詳細指定</span>
             </button>
           </div>
 
