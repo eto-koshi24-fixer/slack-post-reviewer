@@ -342,7 +342,7 @@ export default function Home() {
         <div className="w-96 flex flex-col gap-4 h-full overflow-y-auto px-2">
           {/* ユーザー情報カード */}
           {loggedIn && userInfo ? (
-            <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 flex items-center gap-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 flex items-center gap-3">
               <Image
                 src={userInfo.avatar || "/default-avatar.png"}
                 alt="ユーザーアバター"
