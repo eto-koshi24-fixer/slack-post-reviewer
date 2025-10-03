@@ -44,7 +44,7 @@ type UserInfo = {
 
 export default function Home() {
   const [start, setStart] = useState(
-    dayjs().startOf("month").format("YYYY-MM-DD"),
+    dayjs().startOf("month").format("YYYY-MM-DD")
   );
   const [end, setEnd] = useState(dayjs().format("YYYY-MM-DD"));
   const [data, setData] = useState<GroupedMessages | null>(null);
@@ -146,13 +146,15 @@ export default function Home() {
           .endOf("month");
         startParam = startOfMonth.format("YYYY-MM-DD");
         endParam = endOfMonth.format("YYYY-MM-DD");
+        setStart(startParam);
+        setEnd(endParam);
       }
 
       const eventSource = new EventSource(
-        `/api/slack/self_messages_sse?start=${startParam}&end=${endParam}&types=${selectedTypes}`,
+        `/api/slack/self_messages_sse?start=${startParam}&end=${endParam}&types=${selectedTypes}`
       );
 
-      eventSource.onmessage = (event) => {
+      eventSource.onmessage = event => {
         try {
           const data = JSON.parse(event.data);
 
@@ -178,7 +180,7 @@ export default function Home() {
         }
       };
 
-      eventSource.onerror = (error) => {
+      eventSource.onerror = error => {
         console.error("SSE Error:", error);
         eventSource.close();
         setLoading(false);
@@ -347,7 +349,7 @@ export default function Home() {
                 width={48}
                 height={48}
                 className="w-12 h-12 rounded-full"
-                onError={(e) => {
+                onError={e => {
                   e.currentTarget.src =
                     "https://via.placeholder.com/48x48?text=👤";
                 }}
@@ -400,7 +402,7 @@ export default function Home() {
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setSelectedYear((prev) => prev - 1)}
+                    onClick={() => setSelectedYear(prev => prev - 1)}
                     className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
                   >
                     <Icon path={mdiChevronLeft} size={0.8} />
@@ -408,9 +410,9 @@ export default function Home() {
                   <input
                     type="number"
                     value={selectedYear}
-                    onChange={(e) =>
+                    onChange={e =>
                       setSelectedYear(
-                        parseInt(e.target.value, 10) || dayjs().year(),
+                        parseInt(e.target.value, 10) || dayjs().year()
                       )
                     }
                     className="flex-1 h-[42px] px-3 border rounded-lg text-center font-medium"
@@ -419,7 +421,7 @@ export default function Home() {
                   />
                   <button
                     type="button"
-                    onClick={() => setSelectedYear((prev) => prev + 1)}
+                    onClick={() => setSelectedYear(prev => prev + 1)}
                     className="h-[42px] px-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 hover:underline-offset-4 hover:underline hover:cursor-pointer transition-colors flex items-center justify-center"
                   >
                     <Icon path={mdiChevronRight} size={0.8} />
@@ -465,7 +467,7 @@ export default function Home() {
                   id="start-date"
                   type="date"
                   value={start}
-                  onChange={(e) => setStart(e.target.value)}
+                  onChange={e => setStart(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -482,7 +484,7 @@ export default function Home() {
                   id="end-date"
                   type="date"
                   value={end}
-                  onChange={(e) => setEnd(e.target.value)}
+                  onChange={e => setEnd(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
@@ -495,7 +497,7 @@ export default function Home() {
               type="button"
               className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
               onClick={() => setIsDetailedMode(!isDetailedMode)}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
                   setIsDetailedMode(!isDetailedMode);
@@ -527,15 +529,15 @@ export default function Home() {
                 type="button"
                 className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
-                  setMessageTypes((prev) => ({
+                  setMessageTypes(prev => ({
                     ...prev,
                     channel: !prev.channel,
                   }))
                 }
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    setMessageTypes((prev) => ({
+                    setMessageTypes(prev => ({
                       ...prev,
                       channel: !prev.channel,
                     }));
@@ -563,15 +565,15 @@ export default function Home() {
                 type="button"
                 className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
-                  setMessageTypes((prev) => ({
+                  setMessageTypes(prev => ({
                     ...prev,
                     group_dm: !prev.group_dm,
                   }))
                 }
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    setMessageTypes((prev) => ({
+                    setMessageTypes(prev => ({
                       ...prev,
                       group_dm: !prev.group_dm,
                     }));
@@ -599,12 +601,12 @@ export default function Home() {
                 type="button"
                 className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 hover:underline-offset-4 hover:underline px-2 py-1 rounded transition-colors border-none bg-transparent"
                 onClick={() =>
-                  setMessageTypes((prev) => ({ ...prev, dm: !prev.dm }))
+                  setMessageTypes(prev => ({ ...prev, dm: !prev.dm }))
                 }
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    setMessageTypes((prev) => ({ ...prev, dm: !prev.dm }));
+                    setMessageTypes(prev => ({ ...prev, dm: !prev.dm }));
                   }
                 }}
                 aria-pressed={messageTypes.dm}
@@ -699,7 +701,7 @@ export default function Home() {
                   <span className="font-bold">
                     {Object.values(data).reduce(
                       (total, channel) => total + channel.messages.length,
-                      0,
+                      0
                     )}
                   </span>
                 </p>
@@ -710,10 +712,10 @@ export default function Home() {
                   .sort(([, channelA], [, channelB]) => {
                     // まずチャンネルタイプで比較
                     const priorityA = getChannelTypePriority(
-                      channelA.channelType,
+                      channelA.channelType
                     );
                     const priorityB = getChannelTypePriority(
-                      channelB.channelType,
+                      channelB.channelType
                     );
 
                     if (priorityA !== priorityB) {
@@ -727,10 +729,10 @@ export default function Home() {
                     <details
                       key={channelName}
                       className="border border-gray-300 rounded-lg"
-                      onToggle={(e) => {
+                      onToggle={e => {
                         const target = e.target as HTMLDetailsElement;
                         if (target) {
-                          setOpenDropdowns((prev) => ({
+                          setOpenDropdowns(prev => ({
                             ...prev,
                             [channelName]: target.open,
                           }));
@@ -764,8 +766,8 @@ export default function Home() {
                           >
                             <div className="text-gray-900 text-base mb-2 whitespace-pre-wrap break-words">
                               {parseMessageWithMentionsAndLinks(
-                                message.message,
-                              ).map((part) => {
+                                message.message
+                              ).map(part => {
                                 if (part.type === "mention" && part.username) {
                                   return (
                                     <span
