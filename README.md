@@ -23,84 +23,47 @@ Slack の任意期間の投稿を取得・閲覧する Web アプリケーショ
 
 ## セットアップ手順
 
-### 1. リポジトリのクローン
+### 1. 初期セットアップ
 
-```bash
-git clone https://github.com/eto-koshi24-fixer/slack-post-reviewer.git
-cd slack-post-reviewer
-```
+プロジェクトフォルダを開いて、以下の手順で実行してください:
 
-### 2. 依存パッケージのインストール
+#### ステップ 1: Node.js・pnpm・依存関係のインストール
 
-```bash
-pnpm install
-```
+`初期セットアップ1.bat` をダブルクリックして実行
 
-### 3. ローカル開発用 SSL 証明書の生成
+- Node.js のバージョン確認
+- pnpm のインストール確認
+- 依存関係のインストール
+- mkcert のインストール確認
 
-HTTPS が必要なため、mkcert を使用してローカル証明書を生成します。
+**⚠️ mkcert を新規インストールした場合は、PC を再起動してください。**
 
-#### mkcert のインストール
+#### ステップ 2: SSL 証明書の生成
 
-**Windows (winget):**
+PC 再起動後（または mkcert が既にインストール済みの場合はそのまま）、`初期セットアップ2.bat` をダブルクリックして実行
 
-```bash
-winget install FiloSottile.mkcert
-```
+- ローカル認証局のインストール
+- localhost 用証明書の生成
 
-**⚠️ インストール後、PC を再起動してください。**
-
-再起動後、PowerShell またはコマンドプロンプトで以下を実行して動作確認:
-
-```bash
-mkcert -version
-```
-
-#### 証明書の生成
-
-```bash
-# ローカル認証局のインストール（初回のみ）
-mkcert -install
-
-# localhost用証明書の生成
-mkcert localhost
-
-# 以下のファイルが生成されます:
-# - localhost.pem (証明書)
-# - localhost-key.pem (秘密鍵)
-```
-
-### 5. 環境変数の設定
+### 2. 環境変数の設定
 
 SharePoint から `.env.local` ファイルをダウンロードして、プロジェクトルートに配置してください。
 
 **SharePoint**: [環境変数ファイルの場所のリンクをここに記載]
 
-ダウンロード後、プロジェクトルートに配置:
+### 3. アプリケーションの起動
 
-```bash
-# .env.local をプロジェクトルートに配置
-# slack-post-reviewer/.env.local
-```
+`アプリ起動.bat` をダブルクリックして実行
 
-### 6. 開発サーバーの起動
+- ポート 3000 の使用状況を確認し、使用中の場合は自動でプロセスを終了
+- 開発サーバーを起動
+- サーバー起動完了後、自動でブラウザが開きます（https://localhost:3000）
 
-```bash
-pnpm dev
-```
+終了するには、ウィンドウで `Ctrl+C` を押してください。
 
-```bash
-$ pnpm dev
+## 開発者向けコマンド
 
-> slack-post-reviewer@0.1.0 dev C:\github\slack-post-reviewer
-> node server.js
-
-> Ready on https://localhost:3000
-```
-
-↑ が表示されたら、ブラウザで [https://localhost:3000](https://localhost:3000) にアクセスしてください。
-
-## スクリプト
+コマンドラインから実行する場合:
 
 ```bash
 # 開発サーバー起動（HTTPS）
@@ -123,8 +86,8 @@ pnpm check:fix
 
 ```
 slack-post-reviewer/
-├── src/
-│   ├── app/
+├── src/                          # アプリケーションコード
+│   ├── app/                      # Next.js App Router
 │   │   ├── api/
 │   │   │   ├── auth/slack/      # Slack OAuth認証
 │   │   │   ├── slack/           # Slackメッセージ取得API
@@ -136,7 +99,14 @@ slack-post-reviewer/
 │   │   └── slack.ts             # Slack APIクライアント
 │   └── types/
 │       └── slack.ts             # 型定義
-├── server.js                     # HTTPSカスタムサーバー
+├── scripts/                      # PowerShellスクリプト
+│   ├── setup1.ps1               # 初期セットアップ1
+│   ├── setup2.ps1               # 初期セットアップ2（証明書）
+│   └── start.ps1                # アプリ起動
+├── 初期セットアップ1.bat         # セットアップバッチ1
+├── 初期セットアップ2.bat         # セットアップバッチ2
+├── アプリ起動.bat                # アプリ起動バッチ
+├── server.ts                     # HTTPSカスタムサーバー
 ├── .env.local                    # 環境変数（Git管理外）
 ├── localhost.pem                 # SSL証明書（Git管理外）
 └── localhost-key.pem             # SSL秘密鍵（Git管理外）
@@ -162,15 +132,13 @@ slack-post-reviewer/
 
 ### SSL 証明書エラーが出る場合
 
-```bash
-# 証明書を再生成
-rm localhost*.pem
-mkcert localhost
-```
+`初期セットアップ2.bat` を再度実行してください。
 
 ### ポート 3000 が使用中の場合
 
-[server.js](server.js#L21)の`.listen(3000, ...)`を別のポート番号に変更してください。
+`アプリ起動.bat` は自動でポート 3000 を使用中のプロセスを終了します。
+
+それでも問題がある場合は、[server.ts](server.ts#L21)の`.listen(3000, ...)`を別のポート番号に変更してください。
 
 ### Slack 認証が失敗する場合
 
@@ -178,6 +146,10 @@ mkcert localhost
 2. Redirect URL が正確に設定されているか確認
 3. `.env.local`の環境変数を確認
 4. ブラウザのキャッシュをクリア
+
+### バッチファイルで文字化けが発生する場合
+
+PowerShell スクリプト（`scripts/` フォルダ内の `.ps1` ファイル）が UTF-8 with BOM で保存されているか確認してください。
 
 ## ライセンス
 
