@@ -52,6 +52,8 @@ export default function Home() {
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [fetchedStart, setFetchedStart] = useState("");
+  const [fetchedEnd, setFetchedEnd] = useState("");
   const [openDropdowns, setOpenDropdowns] = useState<{
     [channelName: string]: boolean;
   }>({});
@@ -149,6 +151,10 @@ export default function Home() {
         setStart(startParam);
         setEnd(endParam);
       }
+
+      // 取得した期間を保存
+      setFetchedStart(startParam);
+      setFetchedEnd(endParam);
 
       const eventSource = new EventSource(
         `/api/slack/self_messages_sse?start=${startParam}&end=${endParam}&types=${selectedTypes}`
@@ -675,9 +681,9 @@ export default function Home() {
                 <h2 className="text-xl font-semibold mb-4">集計結果</h2>
                 <p className="mb-4">
                   期間:{" "}
-                  {isDetailedMode
-                    ? `${start} 〜 ${end}`
-                    : `${selectedYear}年${selectedMonth}月`}{" "}
+                  {fetchedStart && fetchedEnd
+                    ? `${fetchedStart} 〜 ${fetchedEnd}`
+                    : ""}{" "}
                   / 総件数:{" "}
                   <span className="font-bold">
                     {Object.values(data).reduce(
