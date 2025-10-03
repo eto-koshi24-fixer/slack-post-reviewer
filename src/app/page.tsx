@@ -504,11 +504,9 @@ export default function Home() {
             </>
           )}
 
+          <div className="block text-sm font-medium">メッセージタイプ</div>
           {/* メッセージタイプ選択 */}
           <div>
-            <div className="block text-sm font-medium mb-2">
-              メッセージタイプ
-            </div>
             <div className="flex flex-wrap gap-4">
               <button
                 type="button"
