@@ -1,7 +1,7 @@
-const https = require("node:https");
-const fs = require("node:fs");
-const { parse } = require("node:url");
-const next = require("next");
+import https from "node:https";
+import fs from "node:fs";
+import { parse } from "node:url";
+import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -15,11 +15,10 @@ const httpsOptions = {
 app.prepare().then(() => {
   https
     .createServer(httpsOptions, (req, res) => {
-      const parsedUrl = parse(req.url, true);
+      const parsedUrl = parse(req.url || "", true);
       handle(req, res, parsedUrl);
     })
-    .listen(3000, (err) => {
-      if (err) throw err;
+    .listen(3000, () => {
       console.log("> Ready on https://localhost:3000");
     });
 });
