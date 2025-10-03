@@ -24,6 +24,17 @@ try {
     exit 1
 }
 
+# ポート3000を使用中のプロセスを強制終了
+Write-Host "ポート3000の使用状況を確認中..."
+$process = Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique
+if ($process) {
+    Write-Host "ポート3000を使用中のプロセス (PID: $process) を終了します..."
+    Stop-Process -Id $process -Force -ErrorAction SilentlyContinue
+    Start-Sleep -Seconds 1
+    Write-Host "プロセスを終了しました。"
+    Write-Host ""
+}
+
 # アプリケーションを起動
 Write-Host ""
 Write-Host "アプリケーションを起動しています..."
