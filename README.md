@@ -49,7 +49,9 @@ PC 再起動後（または mkcert が既にインストール済みの場合は
 
 SharePoint から `.env.local` ファイルをダウンロードして、プロジェクトルートに配置してください。
 
-**SharePoint**: [環境変数ファイルの場所のリンクをここに記載]
+ダウンロードすると名前が変わるので、`env.download` などになっている場合は `.env.local` にリネームしてください。
+
+**SharePoint**: [リンク](https://officefixer-my.sharepoint.com/:f:/g/personal/eto_koshi24_fixer_co_jp/Esn1_JGQwidBrE2G1-JfxPMBFzmGaLt4JWzJ0uroLWowzw?e=6GbsHo)
 
 ### 3. アプリケーションの起動
 
